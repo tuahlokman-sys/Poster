@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCE Flyer Generator – Safety Leadership OSH 2022</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ─── THEMES ─────────────────────────────────────────── */
+body[data-theme="obsidian"] {
+  --bg-page:    #1a1d23;
+  --bg-alt:     #23272f;
+  --bg-card:    #2a2e38;
+  --bg-hero:    #111318;
+  --accent1:    #c8922a;
+  --accent2:    #e8b84b;
+  --accent3:    #b84c2b;
+  --text-head:  #f0ece3;
+  --text-body:  #9ca3af;
+  --text-dim:   #4b5563;
+  --border:     #2e323c;
+  --tag-bg:     #c8922a;
+  --tag-fg:     #111318;
+  --stripe:     linear-gradient(90deg,#c8922a,#b84c2b);
+}
+body[data-theme="blueprint"] {
+  --bg-page:    #0b1829;
+  --bg-alt:     #0f2040;
+  --bg-card:    #132844;
+  --bg-hero:    #071020;
+  --accent1:    #00c8e8;
+  --accent2:    #5de8ff;
+  --accent3:    #0071bc;
+  --text-head:  #e8f4fb;
+  --text-body:  #7fb8d8;
+  --text-dim:   #2e5a7c;
+  --border:     #1a3550;
+  --tag-bg:     #00c8e8;
+  --tag-fg:     #071020;
+  --stripe:     linear-gradient(90deg,#0071bc,#00c8e8);
+}
+body[data-theme="carbon"] {
+  --bg-page:    #0d0d0d;
+  --bg-alt:     #161616;
+  --bg-card:    #1e1e1e;
+  --bg-hero:    #070707;
+  --accent1:    #e63946;
+  --accent2:    #ff6b6b;
+  --accent3:    #c0c0c0;
+  --text-head:  #f5f5f5;
+  --text-body:  #888888;
+  --text-dim:   #3a3a3a;
+  --border:     #2a2a2a;
+  --tag-bg:     #e63946;
+  --tag-fg:     #ffffff;
+  --stripe:     linear-gradient(90deg,#e63946,#c0c0c0);
+}
+body[data-theme="slate"] {
+  --bg-page:    #f4f6f8;
+  --bg-alt:     #ffffff;
+  --bg-card:    #ffffff;
+  --bg-hero:    #1e2d3d;
+  --accent1:    #00897b;
+  --accent2:    #26a69a;
+  --accent3:    #1e2d3d;
+  --text-head:  #1e2d3d;
+  --text-body:  #546e7a;
+  --text-dim:   #90a4ae;
+  --border:     #dde3e8;
+  --tag-bg:     #00897b;
+  --tag-fg:     #ffffff;
+  --stripe:     linear-gradient(90deg,#1e2d3d,#00897b);
+}
+
+/* ─── UI SHELL ───────────────────────────────────────── */
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: #0a0a0a;
+  min-height: 100vh;
+}
+
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: #111;
+  border-right: 1px solid #222;
+  padding: 24px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+.sidebar-logo span { color: #c8922a; }
+
+.sidebar-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.theme-btn {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #2a2a2a;
+  background: #1a1a1a;
+  color: #888;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 6px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-btn:hover { border-color: #444; color: #ccc; }
+
+.theme-btn.active {
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+}
+
+.theme-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.page-nav { display: flex; flex-direction: column; gap: 4px; }
+
+.page-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #2a2a2a;
+  background: transparent;
+  color: #555;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+
+.page-btn:hover { border-color: #444; color: #aaa; }
+.page-btn.active { border-color: #555; color: #fff; background: #222; }
+
+.print-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 11px 12px;
+  background: #fff;
+  border: none;
+  color: #000;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.print-btn:hover { background: #e0e0e0; }
+
+/* Main canvas */
+.canvas {
+  flex: 1;
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+  background: #1a1a1a;
+  overflow-y: auto;
+}
+
+/* ─── A4 PAGE ─────────────────────────────────────────── */
+.a4 {
+  width: 794px; /* 210mm @ 96dpi */
+  min-height: 1123px; /* 297mm */
+  background: var(--bg-page);
+  color: var(--text-head);
+  font-family: 'IBM Plex Sans', sans-serif;
+  position: relative;
+  box-shadow: 0 16px 60px rgba(0,0,0,0.6);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.a4.visible { display: flex; }
+
+/* Top stripe */
+.stripe { height: 4px; background: var(--stripe); width: 100%; flex-shrink: 0; }
+
+/* ─── SHARED COMPONENTS ───────────────────────────────── */
+.pg-header {
+  padding: 20px 40px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-alt);
+  flex-shrink: 0;
+}
+
+.pg-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: var(--text-head);
+  letter-spacing: 0.08em;
+}
+
+.pg-brand em { color: var(--accent1); font-style: normal; }
+
+.pg-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.pg-body { flex: 1; padding: 36px 40px; }
+
+.pg-footer {
+  padding: 14px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-alt);
+  flex-shrink: 0;
+}
+
+.pg-footer-l { font-size: 9px; color: var(--text-dim); letter-spacing: 0.06em; }
+.pg-footer-r { font-size: 9px; color: var(--accent1); font-weight: 500; letter-spacing: 0.04em; }
+
+/* Labels */
+.lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 22px;
+}
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+/* ─── PAGE 1: COVER ──────────────────────────────────── */
+.cover-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.cover-top {
+  padding: 32px 40px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--bg-alt);
+}
+
+.cover-org-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 4px;
+}
+
+.cover-pce {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--text-head);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.cover-hrd {
+  display: inline-block;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  margin-top: 6px;
+}
+
+.cover-main-block {
+  flex: 1;
+  padding: 44px 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Technical grid background */
+.cover-main-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.cover-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--accent1);
+  padding: 5px 14px;
+  margin-bottom: 28px;
+  width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-tag-pill span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent1);
+}
+
+.cover-tag-pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent1);
+}
+
+.cover-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  color: var(--text-head);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 4px;
+}
+
+.cover-h1 em {
+  font-style: normal;
+  color: var(--accent1);
+  display: block;
+}
+
+.cover-sub {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 18px;
+  margin-bottom: 36px;
+  max-width: 460px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.8;
+  max-width: 400px;
+  border-left: 2px solid var(--accent1);
+  padding-left: 16px;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-meta-row {
+  display: flex;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-meta-item {}
+
+.cover-meta-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.cover-meta-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.cover-meta-sub {
+  font-size: 10px;
+  color: var(--text-body);
+  font-weight: 300;
+  margin-top: 2px;
+  letter-spacing: 0.04em;
+}
+
+.cover-bottom-bar {
+  background: var(--bg-hero);
+  border-top: 1px solid var(--border);
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cover-contact {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+.cover-price-block { text-align: right; }
+
+.cover-price-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 3px;
+}
+
+.cover-price-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.cover-price-per {
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── PAGE 2: OBJECTIVES ──────────────────────────────── */
+.obj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.obj-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.obj-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--accent1);
+}
+
+.obj-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent1);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.obj-text {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-body);
+  line-height: 1.65;
+}
+
+.target-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.target-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.target-icon-box {
+  width: 26px;
+  height: 26px;
+  background: var(--accent1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target-icon-box svg { width: 13px; height: 13px; fill: var(--tag-fg); }
+
+.target-role {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-head);
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.target-desc {
+  font-size: 9.5px;
+  color: var(--text-body);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ─── PAGE 3: TRAINERS ────────────────────────────────── */
+.trainer-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.trainer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--stripe);
+}
+
+.trainer-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.trainer-role {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--accent1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.trainer-bio {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.75;
+}
+
+.program-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+.stat-box {
+  background: var(--bg-alt);
+  padding: 16px 20px;
+}
+
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.stat-sub {
+  font-size: 9px;
+  color: var(--accent1);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+/* ─── PAGE 4: SCHEDULE ────────────────────────────────── */
+.day-header {
+  background: var(--bg-hero);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent1);
+  margin-bottom: 0;
+}
+
+.day-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: var(--text-head);
+  letter-spacing: 0.08em;
+}
+
+.day-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--accent1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sch-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+.sch-table tr { border-bottom: 1px solid var(--border); }
+.sch-table tr:last-child { border-bottom: none; }
+
+.sch-table tr.is-module { background: var(--bg-alt); }
+.sch-table tr.is-break { background: var(--bg-page); }
+
+.sch-table td { padding: 10px 16px; vertical-align: top; }
+
+.td-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--accent1);
+  white-space: nowrap;
+  width: 68px;
+  padding-top: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.module-chip {
+  display: inline-block;
+  background: var(--accent1);
+  color: var(--tag-fg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+}
+
+.td-title {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-head);
+  line-height: 1.4;
+}
+
+.td-break {
+  font-size: 10.5px;
+  font-weight: 300;
+  color: var(--text-body);
+  font-style: italic;
+}
+
+.end-chip {
+  display: inline-block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+}
+
+/* ─── PAGE 5: REGISTRATION ────────────────────────────── */
+.reg-hero {
+  background: var(--bg-hero);
+  border-bottom: 2px solid var(--accent1);
+  padding: 24px 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.reg-hero::before {
+  content: attr(data-text);
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px;
+  color: var(--accent1);
+  opacity: 0.05;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.reg-hero-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 6px;
+}
+
+.reg-hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.reg-hero-meta {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-body);
+  letter-spacing: 0.02em;
+}
+
+.reg-hero-meta strong { color: var(--text-head); font-weight: 600; }
+
+.reg-cols {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+  padding: 24px 40px;
+}
+
+.form-section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 10px;
+}
+
+.participant-block {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+
+.p-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--accent1);
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 6px;
+  margin-bottom: 5px;
+  align-items: end;
+}
+
+.field-key {
+  font-size: 8.5px;
+  color: var(--text-dim);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+}
+
+.field-line { border: none; border-bottom: 1px solid var(--border); }
+
+/* Right column boxes */
+.info-box {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.info-box-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 12px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+}
+
+.info-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.info-key {
+  font-size: 8.5px;
+  color: var(--text-dim);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.info-val {
+  font-size: 10px;
+  color: var(--text-head);
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.info-val.highlight {
+  color: var(--accent1);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.price-box {
+  background: var(--accent1);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.price-box-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tag-fg);
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.price-box-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  color: var(--tag-fg);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.price-box-per {
+  font-size: 9px;
+  color: var(--tag-fg);
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.notes-box {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent1);
+  padding: 12px 14px;
+  background: var(--bg-alt);
+}
+
+.notes-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent1);
+  margin-bottom: 10px;
+}
+
+.note-item {
+  font-size: 9px;
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.65;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--border);
+  margin-bottom: 6px;
+}
+
+.note-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+/* ─── PRINT ───────────────────────────────────────────── */
+@media print {
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { background: white; }
+  .shell { display: block; }
+  .sidebar { display: none; }
+  .canvas { padding: 0; display: block; background: white; }
+  .a4 { display: flex !important; page-break-after: always; box-shadow: none; width: 100%; min-height: auto; }
+  .a4:last-of-type { page-break-after: avoid; }
+}
+</style>
+</head>
+<body data-theme="obsidian">
+
+<div class="shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-logo">PCE<br><span>Flyer</span><br>Generator</div>
+    </div>
+
+    <div>
+      <div class="sidebar-section-label">Theme</div>
+      <button class="theme-btn active" onclick="setTheme('obsidian',this)">
+        <div class="theme-dot" style="background:#c8922a;"></div>
+        Obsidian
+      </button>
+      <button class="theme-btn" onclick="setTheme('blueprint',this)">
+        <div class="theme-dot" style="background:#00c8e8;"></div>
+        Blueprint
+      </button>
+      <button class="theme-btn" onclick="setTheme('carbon',this)">
+        <div class="theme-dot" style="background:#e63946;"></div>
+        Carbon
+      </button>
+      <button class="theme-btn" onclick="setTheme('slate',this)">
+        <div class="theme-dot" style="background:#00897b;"></div>
+        Slate
+      </button>
+    </div>
+
+    <div>
+      <div class="sidebar-section-label">Page</div>
+      <div class="page-nav">
+        <button class="page-btn active" onclick="showPage(1,this)">01 · Cover</button>
+        <button class="page-btn" onclick="showPage(2,this)">02 · Objektif</button>
+        <button class="page-btn" onclick="showPage(3,this)">03 · Pengajar</button>
+        <button class="page-btn" onclick="showPage(4,this)">04 · Jadual</button>
+        <button class="page-btn" onclick="showPage(5,this)">05 · Daftar</button>
+      </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">↓ Print / Save PDF</button>
+  </aside>
+
+  <!-- ── CANVAS ── -->
+  <main class="canvas">
+
+    <!-- ════ PAGE 1: COVER ════ -->
+    <div class="a4 visible" id="pg1">
+      <div class="stripe"></div>
+      <div class="cover-body">
+        <div class="cover-top">
+          <div>
+            <div class="cover-org-name">Perak Centre of Excellence · PCE</div>
+            <div class="cover-pce">PCE Training</div>
+            <div class="cover-hrd">HRD Corp Claimable</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="cover-org-name" style="margin-bottom:4px;">Subsidiari PKNPk</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent1);letter-spacing:0.08em;">GemaputerA</div>
+          </div>
+        </div>
+
+        <div class="cover-main-block">
+          <div class="cover-tag-pill">
+            <span>Program Keselamatan &amp; Kesihatan Pekerjaan</span>
+          </div>
+          <div class="cover-h1">Safety<br><em>Leadership</em></div>
+          <div class="cover-sub">Steering State Economic Development Corporation<br>Towards OSH (Amendment) Act 2022</div>
+          <div class="cover-desc">
+            Akta Keselamatan dan Kesihatan Pekerjaan (Pindaan) 2022 memperkenalkan perubahan penting yang mewajibkan semua organisasi, termasuk PPEN, untuk memperkukuh kepemimpinan keselamatan, langkah pematuhan, dan strategi pengurusan risiko mereka.
+          </div>
+          <div class="cover-meta-row">
+            <div class="cover-meta-item">
+              <div class="cover-meta-label">Tarikh</div>
+              <div class="cover-meta-value">6–7 MEI 2026</div>
+              <div class="cover-meta-sub">Rabu – Khamis</div>
+            </div>
+            <div class="cover-meta-item">
+              <div class="cover-meta-label">Tempat</div>
+              <div class="cover-meta-value" style="font-size:16px;line-height:1.2;">Hotel Casuarina<br>Meru, Ipoh</div>
+            </div>
+            <div class="cover-meta-item">
+              <div class="cover-meta-label">Tutup Daftar</div>
+              <div class="cover-meta-value" style="font-size:16px;">2 Mei 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cover-bottom-bar">
+          <div class="cover-contact">
+            Pn Syarifah · 019-853 1501 / 05-5019 500<br>
+            Pn Nazatul · 012-523 7430 / 05-5019 517<br>
+            training.sales@pcesb.com.my
+          </div>
+          <div class="cover-price-block">
+            <div class="cover-price-lbl">Yuran Penyertaan</div>
+            <div class="cover-price-val">RM1,300</div>
+            <div class="cover-price-per">per peserta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE 2: OBJECTIVES ════ -->
+    <div class="a4" id="pg2">
+      <div class="stripe"></div>
+      <div class="pg-header">
+        <div class="pg-brand">PCE <em>·</em> Safety Leadership</div>
+        <div class="pg-label">Objektif &amp; Sasaran</div>
+      </div>
+      <div class="pg-body">
+        <div class="lbl">Objektif Program</div>
+        <div class="section-title">Matlamat Pembelajaran</div>
+        <div class="obj-grid">
+          <div class="obj-card">
+            <div class="obj-num">// 01</div>
+            <div class="obj-text">Memberi pemahaman menyeluruh mengenai pindaan Akta Keselamatan dan Kesihatan Pekerjaan (OSH) 2022.</div>
+          </div>
+          <div class="obj-card">
+            <div class="obj-num">// 02</div>
+            <div class="obj-text">Memupuk budaya keselamatan yang proaktif dalam kalangan pemimpin dan pekerja.</div>
+          </div>
+          <div class="obj-card">
+            <div class="obj-num">// 03</div>
+            <div class="obj-text">Meningkatkan kesedaran tentang tanggungjawab bersama dalam memastikan persekitaran kerja yang selamat dan sihat.</div>
+          </div>
+          <div class="obj-card">
+            <div class="obj-num">// 04</div>
+            <div class="obj-text">Mengintegrasikan amalan keselamatan dalam operasi harian organisasi dan memastikan pematuhan penuh terhadap undang-undang.</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="lbl">Sasaran Peserta</div>
+        <div class="section-title" style="font-size:24px;margin-bottom:16px;">Siapa Patut Hadir?</div>
+        <div class="target-grid">
+          <div class="target-card">
+            <div class="target-icon-box"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+            <div>
+              <div class="target-role">Ketua Jabatan &amp; Pengarah</div>
+              <div class="target-desc">Tanggungjawab strategik OSH</div>
+            </div>
+          </div>
+          <div class="target-card">
+            <div class="target-icon-box"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+            <div>
+              <div class="target-role">Pegawai &amp; Pengamal Keselamatan</div>
+              <div class="target-desc">Melaksanakan langkah pematuhan OSH</div>
+            </div>
+          </div>
+          <div class="target-card">
+            <div class="target-icon-box"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.51 16.49 1 14.65 1c-1.2 0-2.16.6-2.82 1.48L12 3.4l-.83-1.92C10.51 1.6 9.55 1 8.35 1 6.51 1 5 2.51 5 4.35c0 .47.11.91.18 1.35H3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h17c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
+            <div>
+              <div class="target-role">Pengurus HR, Pematuhan &amp; Operasi</div>
+              <div class="target-desc">Menyelaraskan dasar OSH dalam operasi</div>
+            </div>
+          </div>
+          <div class="target-card">
+            <div class="target-icon-box"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
+            <div>
+              <div class="target-role">Pengurus Projek &amp; Jurutera</div>
+              <div class="target-desc">Integrasi OSH dalam projek infrastruktur</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-footer">
+        <div class="pg-footer-l">Perak Centre of Excellence Sdn Bhd · HRD Corp Claimable</div>
+        <div class="pg-footer-r">training.sales@pcesb.com.my</div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE 3: TRAINERS ════ -->
+    <div class="a4" id="pg3">
+      <div class="stripe"></div>
+      <div class="pg-header">
+        <div class="pg-brand">PCE <em>·</em> Safety Leadership</div>
+        <div class="pg-label">Tenaga Pengajar</div>
+      </div>
+      <div class="pg-body">
+        <div class="lbl">Fasilitator Program</div>
+        <div class="section-title">Biodata Tenaga Pengajar</div>
+        <div class="trainer-card">
+          <div class="trainer-name">Dr. Mayu Sahat</div>
+          <div class="trainer-role">"Doktor Pencen Muda" · Bekas Pegawai Perubatan Kerajaan</div>
+          <div class="trainer-bio">Dr. Mayu Sahat berpengalaman luas dalam bidang kesihatan, motivasi serta pembangunan diri khususnya dalam kalangan pesakit kronik dan penjawat awam yang mendepani fasa persaraan. Berbekalkan latar belakang sebagai doktor dan pengalaman peribadi menghidap penyakit SLE (Systemic Lupus Erythematosus), beliau menjadikan kisah hidupnya sebagai sumber inspirasi kepada masyarakat untuk terus kuat, bersyukur dan mengurus kehidupan dengan seimbang daripada aspek fizikal, mental dan kewangan.</div>
+        </div>
+        <div class="trainer-card">
+          <div class="trainer-name">Tuan Azizi Ali</div>
+          <div class="trainer-role">Pakar Kewangan Peribadi · Pengasas Millionaire Mentor</div>
+          <div class="trainer-bio">Tuan Azizi Ali ialah seorang pakar kewangan peribadi terkemuka Malaysia, penulis prolifik dan mentor kewangan yang berpengalaman lebih 20 tahun dalam bidang perancangan kewangan, pelaburan dan pengurusan kekayaan. Beliau dikenali melalui pendekatan praktikal dan berdisiplin dalam membantu individu mencapai kestabilan serta kebebasan kewangan. Beliau juga pengasas Millionaire Mentor dan aktif menulis puluhan buku bestseller berkaitan kewangan peribadi, hartanah dan pengurusan hutang.</div>
+        </div>
+        <div class="program-stats">
+          <div class="stat-box">
+            <div class="stat-label">Tempoh</div>
+            <div class="stat-value">2 Hari</div>
+            <div class="stat-sub">6–7 Mei 2026</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Modul</div>
+            <div class="stat-value">6 Modul</div>
+            <div class="stat-sub">Teori &amp; Praktikal</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Akreditasi</div>
+            <div class="stat-value">HRD Corp</div>
+            <div class="stat-sub">Claimable</div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-footer">
+        <div class="pg-footer-l">Perak Centre of Excellence Sdn Bhd · HRD Corp Claimable</div>
+        <div class="pg-footer-r">training.sales@pcesb.com.my</div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE 4: SCHEDULE ════ -->
+    <div class="a4" id="pg4">
+      <div class="stripe"></div>
+      <div class="pg-header">
+        <div class="pg-brand">PCE <em>·</em> Safety Leadership</div>
+        <div class="pg-label">Atur Cara Kursus</div>
+      </div>
+      <div class="pg-body" style="padding-top:28px;">
+
+        <div class="day-header">
+          <div class="day-title">Hari Pertama</div>
+          <div class="day-date">Rabu · 6 Mei 2026</div>
+        </div>
+        <table class="sch-table">
+          <tbody>
+            <tr class="is-break"><td class="td-time">08:30</td><td><div class="td-break">Pendaftaran &amp; Sesi Bergambar</div></td></tr>
+            <tr class="is-module"><td class="td-time">09:00</td><td><div class="module-chip">Modul 1</div><div class="td-title">Pengenalan kepada Akta OSH (Pindaan) 2022</div></td></tr>
+            <tr class="is-break"><td class="td-time">10:00</td><td><div class="td-break">Minum Pagi</div></td></tr>
+            <tr class="is-module"><td class="td-time">10:30</td><td><div class="module-chip">Modul 2</div><div class="td-title">Kepimpinan dalam Keselamatan Tempat Kerja</div></td></tr>
+            <tr class="is-break"><td class="td-time">01:00</td><td><div class="td-break">Makan Tengah Hari / Rehat / Solat</div></td></tr>
+            <tr class="is-module"><td class="td-time">02:00</td><td><div class="module-chip">Modul 3</div><div class="td-title">Memastikan Pematuhan &amp; Tadbir Urus</div></td></tr>
+            <tr class="is-break"><td class="td-time">03:00</td><td><div class="td-break">Minum Petang</div></td></tr>
+            <tr class="is-module"><td class="td-time">03:30</td><td><div class="module-chip">Modul 4</div><div class="td-title">Penilaian Risiko &amp; Pencegahan Bahaya</div></td></tr>
+            <tr class="is-break"><td class="td-time">05:00</td><td><div class="end-chip">TAMAT</div><div class="td-break">Tamat Hari Pertama</div></td></tr>
+          </tbody>
+        </table>
+
+        <div class="day-header">
+          <div class="day-title">Hari Kedua</div>
+          <div class="day-date">Khamis · 7 Mei 2026</div>
+        </div>
+        <table class="sch-table">
+          <tbody>
+            <tr class="is-break"><td class="td-time">08:30</td><td><div class="td-break">Pendaftaran</div></td></tr>
+            <tr class="is-module"><td class="td-time">09:00</td><td><div class="module-chip">Modul 5</div><div class="td-title">Menerapkan Budaya Organisasi Berasaskan Keselamatan</div></td></tr>
+            <tr class="is-break"><td class="td-time">10:00</td><td><div class="td-break">Minum Pagi</div></td></tr>
+            <tr class="is-module"><td class="td-time">10:30</td><td><div class="module-chip">Modul 6</div><div class="td-title">Strategi Praktikal untuk Pelaksanaan</div></td></tr>
+            <tr class="is-break"><td class="td-time">01:00</td><td><div class="td-break">Makan Tengah Hari / Rehat / Solat</div></td></tr>
+            <tr class="is-break"><td class="td-time">02:00</td><td><div class="td-break" style="font-weight:500;color:var(--text-head);">Aktiviti Kumpulan &amp; Rumusan</div></td></tr>
+            <tr class="is-break"><td class="td-time">03:00</td><td><div class="td-break">Minum Petang</div></td></tr>
+            <tr class="is-break"><td class="td-time">03:30</td><td><div class="td-break" style="font-weight:500;color:var(--text-head);">Sesi Penutup</div></td></tr>
+            <tr class="is-break"><td class="td-time">05:00</td><td><div class="end-chip">TAMAT</div><div class="td-break">Tamat Program</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pg-footer">
+        <div class="pg-footer-l">Perak Centre of Excellence Sdn Bhd · HRD Corp Claimable</div>
+        <div class="pg-footer-r">training.sales@pcesb.com.my</div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE 5: REGISTRATION ════ -->
+    <div class="a4" id="pg5">
+      <div class="stripe"></div>
+      <div class="reg-hero" data-text="DAFTAR">
+        <div class="reg-hero-label">Borang Pendaftaran</div>
+        <div class="reg-hero-title">Daftar Sekarang</div>
+        <div class="reg-hero-meta">Tutup: <strong>2 Mei 2026</strong> &nbsp;·&nbsp; Yuran: <strong>RM 1,300 / peserta</strong></div>
+      </div>
+      <div class="reg-cols">
+        <div>
+          <div class="form-section-label">Maklumat Peserta</div>
+          <div class="participant-block">
+            <div class="p-num">// 01</div>
+            <div class="field-row"><div class="field-key">Nama</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">I/C No</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Jawatan</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Email</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Tel</div><div class="field-line"></div></div>
+          </div>
+          <div class="participant-block">
+            <div class="p-num">// 02</div>
+            <div class="field-row"><div class="field-key">Nama</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">I/C No</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Jawatan</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Email</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Tel</div><div class="field-line"></div></div>
+          </div>
+          <div class="participant-block">
+            <div class="p-num">// 03</div>
+            <div class="field-row"><div class="field-key">Nama</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">I/C No</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Jawatan</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Email</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Tel</div><div class="field-line"></div></div>
+          </div>
+          <div class="participant-block">
+            <div class="p-num">// 04</div>
+            <div class="field-row"><div class="field-key">Nama</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">I/C No</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Jawatan</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Email</div><div class="field-line"></div></div>
+            <div class="field-row"><div class="field-key">Tel</div><div class="field-line"></div></div>
+          </div>
+          <div style="font-size:9px;color:var(--text-dim);margin-top:8px;font-style:italic;">* PKEN boleh menghantar lebih daripada 4 peserta.</div>
+        </div>
+        <div>
+          <div class="price-box">
+            <div class="price-box-label">Yuran Penyertaan</div>
+            <div class="price-box-amount">RM1,300</div>
+            <div class="price-box-per">per peserta</div>
+          </div>
+          <div class="info-box">
+            <div class="info-box-title">Maklumat Pembayaran</div>
+            <div class="info-row"><div class="info-key">Nama Akaun</div><div class="info-val">Perak Centre of<br>Excellence Sdn Bhd</div></div>
+            <div class="info-row"><div class="info-key">Bank</div><div class="info-val">Maybank</div></div>
+            <div class="info-row"><div class="info-key">No. Akaun</div><div class="info-val highlight">5580 2434 0577</div></div>
+          </div>
+          <div class="info-box" style="margin-bottom:10px;">
+            <div class="info-box-title">Kaedah Bayaran</div>
+            <div class="info-row"><div class="info-key">01</div><div class="info-val">Cek</div></div>
+            <div class="info-row"><div class="info-key">02</div><div class="info-val">Bayaran Atas Talian</div></div>
+            <div class="info-row"><div class="info-key">03</div><div class="info-val">Pesanan Tempatan (LO)</div></div>
+          </div>
+          <div class="info-box" style="margin-bottom:10px;">
+            <div class="info-box-title">Emel Bukti Bayaran</div>
+            <div style="font-size:9.5px;color:var(--accent1);font-weight:500;line-height:1.8;">syarifahnuramalina@pcesb.com.my<br>aqidah@pcesb.com.my</div>
+          </div>
+          <div class="notes-box">
+            <div class="notes-title">Nota Penting</div>
+            <div class="note-item">Bayaran penuh sebelum tarikh latihan atau kemukakan Surat Aku Janji.</div>
+            <div class="note-item">PCE berhak membatalkan atau menjadualkan semula program.</div>
+            <div class="note-item">Peserta yang gagal hadir masih bertanggungjawab membayar yuran penuh.</div>
+          </div>
+        </div>
+      </div>
+      <div class="pg-footer">
+        <div class="pg-footer-l">Pn Syarifah: 019-853 1501 · Pn Nazatul: 012-523 7430</div>
+        <div class="pg-footer-r">training.sales@pcesb.com.my</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function setTheme(theme, btn) {
+  document.body.setAttribute('data-theme', theme);
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function showPage(n, btn) {
+  document.querySelectorAll('.a4').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pg' + n).classList.add('visible');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
